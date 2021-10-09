@@ -12,7 +12,7 @@ render(
       <App />
     </Router>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("app")
 );
 
 // If you want to start measuring performance in your app, pass a function
