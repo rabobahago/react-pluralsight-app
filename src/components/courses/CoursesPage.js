@@ -37,8 +37,8 @@ class CoursesPage extends React.Component {
 }
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired
+  actions: PropTypes.object.isRequired
+  //dispatch: PropTypes.func.isRequired
 };
 const mapStateToProps = (state) => {
   return {
