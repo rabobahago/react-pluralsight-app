@@ -1,5 +1,5 @@
 import * as types from "./actionTypes";
-import authorApi from "../../api/authorApi";
+import * as authorApi from "../../api/authorApi";
 
 export const loadAuthorsSuccess = (authors) => {
   return {

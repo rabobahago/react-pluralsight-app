@@ -1,5 +1,6 @@
 import * as types from "../actions/actionTypes";
-const courseReducer = (state = [], action) => {
+import initialState from "./initialState";
+const courseReducer = (state = initialState.courses, action) => {
   switch (action.type) {
     case types.CREATE_COURSE:
       return [...state, { ...action.course }];
