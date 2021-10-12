@@ -6,6 +6,7 @@ import * as authorActions from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import CourseList from "./CourseList";
+import Spinner from "../common/Spinner";
 class CoursesPage extends React.Component {
   state = {
     redirectToAddCoursePage: false
@@ -28,6 +29,7 @@ class CoursesPage extends React.Component {
       <>
         <h2>Courses</h2>
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
+        <Spinner />
         <button
           style={{ marginBottom: 20 }}
           className="btn btn-primary add-course"

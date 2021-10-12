@@ -21,13 +21,15 @@ const ManageCoursePage = ({
       loadCourses().catch((error) => {
         alert("loading courses failed" + error);
       });
+    } else {
+      setCourse({ ...props.course });
     }
     if (authors.length === 0) {
       loadAuthors().catch((error) => {
         alert("loading authors failed" + error);
       });
     }
-  }, [loadAuthors, loadCourses, authors.length, courses.length]);
+  }, [loadAuthors, loadCourses, authors.length, courses.length, props.course]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCourse((prevCourse) => ({
