@@ -9,13 +9,13 @@ export const loadCourseSuccess = (courses) => {
 };
 export const updateCourseSuccess = (course) => {
   return {
-    type: types.UPDATE_COURSES_SUCCESS,
+    type: types.UPDATE_COURSE_SUCCESS,
     course
   };
 };
 export const createCourseSuccess = (course) => {
   return {
-    type: types.CREATE_COURSES_SUCCESS,
+    type: types.CREATE_COURSE_SUCCESS,
     course
   };
 };

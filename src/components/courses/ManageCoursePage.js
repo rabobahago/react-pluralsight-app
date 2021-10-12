@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+//import { withRouter } from "react-router-dom";
 import * as courseActions from "../../redux/actions/courseActions";
 import * as authorActions from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
@@ -10,6 +11,8 @@ const ManageCoursePage = ({
   courses,
   loadAuthors,
   loadCourses,
+  saveCourse,
+  history,
   ...props
 }) => {
   const [course, setCourse] = useState({ ...props.course });
@@ -25,7 +28,7 @@ const ManageCoursePage = ({
         alert("loading authors failed" + error);
       });
     }
-  }, []);
+  }, [loadAuthors, loadCourses, authors.length, courses.length]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCourse((prevCourse) => ({
@@ -33,12 +36,19 @@ const ManageCoursePage = ({
       [name]: name === "authorId" ? parseInt(value, 10) : value
     }));
   };
+  const handleSave = (e) => {
+    e.preventDefault();
+    saveCourse(course).then(() => {
+      history.push("/courses");
+    });
+  };
   return (
     <CourseForm
       course={course}
       errors={errors}
       authors={authors}
       onChange={handleChange}
+      onSave={handleSave}
     />
   );
 };
@@ -47,7 +57,9 @@ ManageCoursePage.propTypes = {
   courses: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
-  authors: PropTypes.array.isRequired
+  authors: PropTypes.array.isRequired,
+  saveCourse: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 const mapStateToProps = (state) => {
   return {
@@ -57,6 +69,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   loadCourses: courseActions.loadCourses,
-  loadAuthors: authorActions.loadAuthors
+  loadAuthors: authorActions.loadAuthors,
+  saveCourse: courseActions.saveCourse
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
