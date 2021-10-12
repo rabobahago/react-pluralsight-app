@@ -71,28 +71,12 @@
       "category": "HTML5"
     },
     {
-      "title": "test",
-      "authorId": 1,
-      "category": "react",
-      "createdAt": 1634038772561,
-      "slug": "test",
-      "id": 11
-    },
-    {
-      "title": "wert",
-      "authorId": 3,
-      "category": "react",
-      "createdAt": 1634039218218,
-      "slug": "wert",
-      "id": 12
-    },
-    {
-      "title": "result ",
-      "authorId": 3,
-      "category": "testing",
-      "createdAt": 1634040680575,
-      "slug": "result",
-      "id": 13
+      "id": 11,
+      "title": "React for beginners",
+      "authorId": 2,
+      "category": "Mid-level",
+      "createdAt": 1634052968619,
+      "slug": "react-for-beginners"
     }
   ],
   "authors": [

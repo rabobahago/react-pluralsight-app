@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-//import { withRouter } from "react-router-dom";
 import * as courseActions from "../../redux/actions/courseActions";
 import * as authorActions from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
@@ -42,6 +41,7 @@ const ManageCoursePage = ({
       history.push("/courses");
     });
   };
+
   return (
     <CourseForm
       course={course}
@@ -61,8 +61,23 @@ ManageCoursePage.propTypes = {
   saveCourse: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 };
-const mapStateToProps = (state) => {
+const getCourseBySlug = (courses, slug) => {
+  return courses.find((course) => course.slug === slug) || null;
+};
+const mapStateToProps = (state, ownProps) => {
+  const slug = ownProps.match.params.slug;
+  const newCourse = {
+    id: null,
+    title: "",
+    authorId: null,
+    category: ""
+  };
+  const course =
+    slug && state.courses.length > 0
+      ? getCourseBySlug(state.courses, slug)
+      : newCourse;
   return {
+    course,
     courses: state.courses,
     authors: state.authors
   };
