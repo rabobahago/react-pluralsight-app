@@ -1,12 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as courseActions from "../../redux/actions/courseActions";
 import * as authorActions from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
+import CourseForm from "./CourseForm";
 
-const ManageCoursePage = (props) => {
+const ManageCoursePage = ({
+  authors,
+  courses,
+  loadAuthors,
+  loadCourses,
+  ...props
+}) => {
+  const [course, setCourse] = useState({ ...props.course });
+  const [errors, setErrors] = useState({});
   useEffect(() => {
-    const { authors, courses, loadAuthors, loadCourses } = props;
     if (courses.length === 0) {
       loadCourses().catch((error) => {
         alert("loading courses failed" + error);
@@ -18,11 +26,20 @@ const ManageCoursePage = (props) => {
       });
     }
   }, []);
-
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCourse((prevCourse) => ({
+      ...prevCourse,
+      [name]: name === "authorId" ? parseInt(value, 10) : value
+    }));
+  };
   return (
-    <>
-      <h2>Manage Course</h2>
-    </>
+    <CourseForm
+      course={course}
+      errors={errors}
+      authors={authors}
+      onChange={handleChange}
+    />
   );
 };
 

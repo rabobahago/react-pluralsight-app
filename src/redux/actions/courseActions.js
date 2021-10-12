@@ -1,15 +1,22 @@
 import * as types from "./actionTypes";
 import * as courseApi from "../../api/courseApi";
-export const createCourse = (course) => {
-  return {
-    type: types.CREATE_COURSE,
-    course
-  };
-};
+
 export const loadCourseSuccess = (courses) => {
   return {
     type: types.LOAD_COURSES_SUCCESS,
     courses
+  };
+};
+export const updateCourseSuccess = (course) => {
+  return {
+    type: types.UPDATE_COURSES_SUCCESS,
+    course
+  };
+};
+export const createCourseSuccess = (course) => {
+  return {
+    type: types.CREATE_COURSES_SUCCESS,
+    course
   };
 };
 export const loadCourses = () => {
@@ -22,5 +29,15 @@ export const loadCourses = () => {
       .catch((error) => {
         throw error;
       });
+  };
+};
+
+export const saveCourse = (course) => {
+  return (dispatch) => {
+    return courseApi.saveCourse(course).then((savedCourse) => {
+      course.id
+        ? dispatch(updateCourseSuccess(savedCourse))
+        : dispatch(createCourseSuccess(savedCourse));
+    });
   };
 };
