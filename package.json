@@ -25,8 +25,13 @@
     "prestart:api": "node tools/createMockDb.js",
     "start:api": "node tools/apiServer.js",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watchAll",
     "eject": "react-scripts eject"
+  },
+  "testEnvironment": "jsdom",
+  "moduleNameMapper": {
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/fileMock.js",
+    "\\.(css|less)$": "<rootDir>/tools/styleMock.js"
   },
   "eslintConfig": {
     "extends": [
@@ -47,8 +52,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.14.5",
     "@testing-library/react": "^12.1.2",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
+    "babel-preset-react-app": "^10.0.0",
     "enzyme": "^3.11.0",
     "fetch-mock": "^9.11.0",
     "http-server": "^13.0.2",
