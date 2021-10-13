@@ -25,19 +25,25 @@ class CoursesPage extends React.Component {
     }
   }
   render() {
+    console.log(this.props.loading);
     return (
       <>
-        <h2>Courses</h2>
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
-        <Spinner />
-        <button
-          style={{ marginBottom: 20 }}
-          className="btn btn-primary add-course"
-          onClick={() => this.setState({ redirectToAddCoursePage: true })}
-        >
-          Add Course
-        </button>
-        <CourseList courses={this.props.courses} />
+        <h2>Courses</h2>
+        {!this.props.loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <button
+              style={{ marginBottom: 20 }}
+              className="btn btn-primary add-course"
+              onClick={() => this.setState({ redirectToAddCoursePage: true })}
+            >
+              Add Course
+            </button>
+            <CourseList courses={this.props.courses} />
+          </>
+        )}
       </>
     );
   }
@@ -45,7 +51,8 @@ class CoursesPage extends React.Component {
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
-  authors: PropTypes.array.isRequired
+  authors: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 const mapStateToProps = (state) => {
   return {
@@ -59,7 +66,8 @@ const mapStateToProps = (state) => {
                 .name
             };
           }),
-    authors: state.authors
+    authors: state.authors,
+    loading: state.apiCallsInProgress < 0
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -1,2 +1,2 @@
-const initialState = { courses: [], authors: [], apiCallInProgress: 0 };
+const initialState = { courses: [], authors: [], apiCallsInProgress: 0 };
 export default initialState;

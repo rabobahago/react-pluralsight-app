@@ -1,10 +1,10 @@
 import * as types from "../actions/actionTypes";
 import initialState from "./initialState";
 const actionTypeEndsInSuccess = (type) => {
-  return type.substring(type.length - 8) === "success";
+  return type.substring(type.length - 8) === "_SUCCESS";
 };
 const apiCallStatusReducer = (
-  state = initialState.apiCallInProgress,
+  state = initialState.apiCallsInProgress,
   action
 ) => {
   if (action.types === types.BEGIN_API_CALL) {

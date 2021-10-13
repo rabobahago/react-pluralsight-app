@@ -4,6 +4,7 @@ import * as courseActions from "../../redux/actions/courseActions";
 import * as authorActions from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import CourseForm from "./CourseForm";
+import Spinner from "../common/Spinner";
 
 const ManageCoursePage = ({
   authors,
@@ -15,6 +16,7 @@ const ManageCoursePage = ({
   ...props
 }) => {
   const [course, setCourse] = useState({ ...props.course });
+  const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
   useEffect(() => {
     if (courses.length === 0) {
@@ -39,18 +41,22 @@ const ManageCoursePage = ({
   };
   const handleSave = (e) => {
     e.preventDefault();
+    setSaving(true);
     saveCourse(course).then(() => {
       history.push("/courses");
     });
   };
 
-  return (
+  return authors.length === 0 || course.length === 0 ? (
+    <Spinner />
+  ) : (
     <CourseForm
       course={course}
       errors={errors}
       authors={authors}
       onChange={handleChange}
       onSave={handleSave}
+      saving={saving}
     />
   );
 };
