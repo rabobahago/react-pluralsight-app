@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 import * as courseApi from "../../api/courseApi";
-import { beginApiCall } from "./apiStatusActions";
+import { beginApiCall, apiCallError } from "./apiStatusActions";
 
 export const loadCourseSuccess = (courses) => {
   return {
@@ -20,6 +20,12 @@ export const createCourseSuccess = (course) => {
     course
   };
 };
+export const deleteCourseOptimistic = (course) => {
+  return {
+    type: types.DELETE_COURSE_OPTIMISTIC,
+    course
+  };
+};
 export const loadCourses = () => {
   return (dispatch) => {
     dispatch(beginApiCall());
@@ -29,6 +35,7 @@ export const loadCourses = () => {
         dispatch(loadCourseSuccess(courses));
       })
       .catch((error) => {
+        dispatch(apiCallError(error));
         throw error;
       });
   };
@@ -37,10 +44,22 @@ export const loadCourses = () => {
 export const saveCourse = (course) => {
   return (dispatch) => {
     dispatch(beginApiCall());
-    return courseApi.saveCourse(course).then((savedCourse) => {
-      course.id
-        ? dispatch(updateCourseSuccess(savedCourse))
-        : dispatch(createCourseSuccess(savedCourse));
-    });
+    return courseApi
+      .saveCourse(course)
+      .then((savedCourse) => {
+        course.id
+          ? dispatch(updateCourseSuccess(savedCourse))
+          : dispatch(createCourseSuccess(savedCourse));
+      })
+      .catch((error) => {
+        dispatch(apiCallError(error));
+        throw error;
+      });
+  };
+};
+export const deleteCourse = (course) => {
+  return (dispatch) => {
+    dispatch(deleteCourseOptimistic(course));
+    return courseApi.deleteCourse(course.id);
   };
 };
